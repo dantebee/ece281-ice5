@@ -11,8 +11,8 @@
 --| ---------------------------------------------------------------------------
 --|
 --| FILENAME      : MooreElevatorController.vhd
---| AUTHOR(S)     : Capt Phillip Warner, Capt Dan Johnson, Capt Brian Yarbrough, ***YourName***
---| CREATED       : 03/2018 Last Modified on 06/24/2020
+--| AUTHOR(S)     : Capt Phillip Warner, Capt Dan Johnson, Capt Brian Yarbrough, C3C Dante Benedetti
+--| CREATED       : 03/2018 Last Modified on 04/04/2024
 --| DESCRIPTION   : This file implements the ICE5 Basic elevator controller (Moore Machine)
 --|
 --|  The system is specified as follows:
@@ -131,7 +131,9 @@ begin
             f_Q <= f_Q_next;
         -- if not enabled, stay at current floor
         else
-        f_Q <= f_Q;
+            f_Q <= f_Q;
+            
+            
         end if;
 	end process register_proc;	
 	

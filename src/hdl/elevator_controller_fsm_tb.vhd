@@ -11,8 +11,8 @@
 --| ---------------------------------------------------------------------------
 --|
 --| FILENAME      : MooreElevatorController_tb.vhd (TEST BENCH)
---| AUTHOR(S)     : Capt Phillip Warner, Capt Dan Johnson, **Your Name Here**
---| CREATED       : 03/2017 Last modified on 06/24/2020
+--| AUTHOR(S)     : Capt Phillip Warner, Capt Dan Johnson, C3C Dante Benedetti
+--| CREATED       : 03/2017 Last modified on 04/04/2024
 --| DESCRIPTION   : This file tests the Moore elevator controller module
 --|
 --| DOCUMENTATION : None
@@ -107,56 +107,50 @@ begin
 		
 		-- active UP signal
 		w_up_down <= '1';
-		
 		-- stay on each o_floor for 2 cycles and then move up to the next o_floor
         w_stop <= '1';  wait for k_clk_period * 2;
             assert w_floor = "0010" report "bad wait on floor2" severity failure;
         w_stop <= '0';  wait for k_clk_period;
             assert w_floor = "0011" report "bad up from floor2" severity failure;   
-        
-        w_up_down <= '1';
+
 		-- rest of cases
 		w_stop <= '1';  wait for k_clk_period * 2;
-           assert w_floor = "0001" report "bad wait on floor1" severity failure;
+           assert w_floor = "0011" report "bad wait on floor3" severity failure;
         w_stop <= '0';  wait for k_clk_period;
-           assert w_floor = "0010" report "bad up from floor1" severity failure;
-           
-        w_up_down <= '1';   
-        w_stop <= '1';  wait for k_clk_period * 2;
-            assert w_floor = "0011" report "bad wait on floor3" severity failure;
-        w_stop <= '0';  wait for k_clk_period;
-            assert w_floor = "0100" report "bad up from floor3" severity failure;
-            
-        w_up_down <= '1';
+           assert w_floor = "0100" report "bad up from floor3" severity failure;
+ 
         w_stop <= '1';  wait for k_clk_period * 2;
             assert w_floor = "0100" report "bad wait on floor4" severity failure;
         w_stop <= '0';  wait for k_clk_period;
-            assert w_floor = "0001" report "bad up from floor4" severity failure; -- ??     
+            assert w_floor = "0100" report "bad up from floor4" severity failure;
+    
         
         -- go back DOWN
         w_up_down <= '0';
-        w_stop <= '1';  wait for k_clk_period * 2;
-            assert w_floor = "0010" report "bad wait on floor2" severity failure;
-        w_stop <= '0';  wait for k_clk_period;
-            assert w_floor = "0001" report "bad down from floor2" severity failure;
-            
-        w_up_down <= '0';
-        w_stop <= '1';  wait for k_clk_period * 2;
-           assert w_floor = "0001" report "bad wait on floor1" severity failure;
-        w_stop <= '0';  wait for k_clk_period;
-           assert w_floor = "0100" report "bad down from floor1" severity failure; -- ??
         
-        w_up_down <= '0'; 
+        w_stop <= '1';  wait for k_clk_period * 2;
+            assert w_floor = "0100" report "bad wait on floor4" severity failure;
+        w_stop <= '0';  wait for k_clk_period;
+            assert w_floor = "0011" report "bad down from floor4" severity failure;          
+        
         w_stop <= '1';  wait for k_clk_period * 2;
             assert w_floor = "0011" report "bad wait on floor3" severity failure;
         w_stop <= '0';  wait for k_clk_period;
             assert w_floor = "0010" report "bad down from floor3" severity failure;
-        
-        w_up_down <= '0';
+      
         w_stop <= '1';  wait for k_clk_period * 2;
-            assert w_floor = "0100" report "bad wait on floor4" severity failure;
+            assert w_floor = "0010" report "bad wait on floor2" severity failure;
         w_stop <= '0';  wait for k_clk_period;
-            assert w_floor = "0011" report "bad down from floor4" severity failure;         
+            assert w_floor = "0001" report "bad down from floor2" severity failure;
+
+        w_stop <= '1';  wait for k_clk_period * 2;
+           assert w_floor = "0001" report "bad wait on floor1" severity failure;
+        w_stop <= '0';  wait for k_clk_period;
+           assert w_floor = "0100" report "bad down from floor1" severity failure; -- ??
+ 
+
+
+       
 		  	
 		wait; -- wait forever
 	end process;	
