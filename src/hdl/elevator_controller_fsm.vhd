@@ -122,7 +122,7 @@ begin
     begin
         -- synchronous reset
         if i_reset = '1' then
-            f_Q <= s_floor1;    
+            f_Q <= s_floor2;    
         -- stay at current floor if stop is pressed
         elsif i_stop = '1' then
             f_Q <= f_Q; 
