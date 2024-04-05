@@ -130,7 +130,8 @@ begin
         elsif (rising_edge(i_clk)) then 
             f_Q <= f_Q_next;
         -- if not enabled, stay at current floor
-        
+        else
+        f_Q <= f_Q;
         end if;
 	end process register_proc;	
 	
